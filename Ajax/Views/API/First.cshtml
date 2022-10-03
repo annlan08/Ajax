@@ -1,0 +1,21 @@
+﻿@{
+
+}
+
+
+<div id="div1">
+</div>
+@section Scripts{ 
+    <script>
+        const xhr = new XMLHttpRequest();
+        const thediv = document.querySelector('#div1');
+
+        xhr.addEventListener("load", () => {
+            const data = xhr.responseText;
+            thediv.innerHTML =`<h3>${data}</h3>`
+        })
+
+        xhr.open("GET", "/API/Index")
+        xhr.send();
+    </script>
+}

@@ -50,7 +50,7 @@ namespace Ajax
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Homework}/{action=Homework1}/{id?}");
             });
         }
     }

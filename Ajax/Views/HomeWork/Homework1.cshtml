@@ -1,0 +1,29 @@
+﻿@{
+
+}
+
+<div>
+    <ul id="ulA">
+
+    </ul>
+</div>
+
+@section Scripts{
+    <script src="~/js/travel.js"></script>
+
+    <script>
+
+        const docGrag = document.createDocumentFragment(); //==>先建立一空物件
+        const ultag = document.getElementById("ulA");
+        console.log(DATAS);
+        for (var item of DATAS) {
+            const { Name, Toldescribe, Add} = item;
+            const text = document.createTextNode(Name + " : " + Toldescribe + " : " + Add); //==>建立文字節點
+            const element = document.createElement("li"); //==>建立元素節點
+            element.appendChild(text);
+            docGrag.appendChild(element);
+        }
+
+        ultag.appendChild(docGrag); //==>暫存器放回
+    </script>
+}

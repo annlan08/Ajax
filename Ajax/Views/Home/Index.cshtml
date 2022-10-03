@@ -2,7 +2,160 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section Styles{
+
+    <meta charset="utf-8" />
+    <title>Swiper demo</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    <style>
+        h1 {
+            color: green;
+        }
+
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+            .swiper-slide img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+}
+
+
+<form method="get" action="">
+
+</form>
+
+<form method="post" action="">
+
+</form>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+        <div class="swiper-slide"><img src="~/image/e5832d671bc36a7046143fdd7b0ae048.png" /></div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<div>
+    <ul id="ulA">
+    </ul>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+
+        var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+            { "name": "Jack", "workYears": 5, "salary": 40000 },
+            { "name": "Mary", "workYears": 7, "salary": 45000 }];
+
+         var emp2 = {
+            "employees": [
+                { "name": "Tom", "workYears": 3, "salary": 35000 },
+                { "name": "Jack", "workYears": 5, "salary": 40000 },
+                { "name": "Mary", "workYears": 7, "salary": 45000 }]
+             };
+
+
+        for (var item of emp2.employees) {
+            console.log(item.name);
+            console.log(item.workYears);
+            console.log(item.salary);
+        }
+
+
+        const docGrag = document.createDocumentFragment(); //==>先建立一空物件
+        const ultag = document.getElementById("ulA");
+
+        
+        for (var item of emp2.employees) {
+            const { name, workYears, salary } = item;
+            const text = document.createTextNode(name + " : " + workYears + " : " + salary); //==>建立文字節點
+            const element = document.createElement("li"); //==>建立元素節點
+            element.appendChild(text);
+            docGrag.appendChild(element);          
+        }
+
+        ultag.appendChild(docGrag); //==>暫存器放回
+
+        
+
+    </script>
+}

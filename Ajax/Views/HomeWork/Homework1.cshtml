@@ -17,7 +17,6 @@
         for (var item of DATAS) {
             const { Name, Add, Tel, Ticketinfo, Toldescribe } = item;
             const outli_element = document.createElement("ol");            
-
             let arr = [`名稱 : ${Name}`, `地址 : ${Add}`, `電話 : ${Tel}`, `票價 : ${Ticketinfo}`, `簡介 : ${Toldescribe}`];
             for (var node of arr) {
                 const li_element = document.createElement("li");

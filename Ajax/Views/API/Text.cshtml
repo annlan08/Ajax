@@ -1,0 +1,79 @@
+﻿@{
+
+}
+
+@section Styles{
+ 
+<style>
+    .dogimg{
+        display:none;
+        height:80px;
+    }
+</style>
+}
+
+<div class="container justify-content-md-end m-auto">
+    <input type="text" id="txt1" class="text-body m-auto"/>
+    <div class="dogimg form-inline" id="img1">
+        <img src="~/image/dog.gif" style="height:80px"/>
+    </div>                                 
+</div>
+<button id="btn1" class="btn btn-primary m-2">OK</button><button id="btn2" class="btn btn-danger m-2">NO</button>
+<div id="div1">
+
+</div>
+
+@section Scripts{ 
+<script>
+    const btn = document.querySelector('#btn1');
+    const btnNO = document.querySelector('#btn2');
+    const txt = document.querySelector('#txt1');
+    const div1 = document.querySelector('#div1');
+    const img = document.querySelector('#img1');
+    const xhr = new XMLHttpRequest();
+
+
+    btn.addEventListener("click", () => {
+        console.log(txt.value);
+
+        const url = "@Url.Action("SayHello", "API")";
+        const para = `?name=${txt.value}`;
+
+        xhr.open("GET", url + para);
+        xhr.timeout = 5000;
+        xhr.send();
+    })
+
+    btnNO.addEventListener("click", () => {
+        xhr.abort();
+    })
+
+    xhr.addEventListener("load", () => {
+        let data = xhr.responseText;
+        div1.textContent = data;
+    })
+
+    xhr.addEventListener("loadstart", () => {
+        btn.textContent = 'Loading';
+        btn.setAttribute("disabled", "disabled")
+        img.style.display = 'inline'
+    })
+
+    xhr.addEventListener("loadend", () => {
+        btn.textContent = 'OK';
+        btn.removeAttribute("disabled");
+        img.style.display = 'none'
+    })
+
+    xhr.addEventListener("timeout", () => {
+        div1.textContent = '連線逾時';
+    })
+
+    xhr.addEventListener("abort", () => {
+        div1.textContent = '已取消';
+    })
+
+
+</script>
+
+}

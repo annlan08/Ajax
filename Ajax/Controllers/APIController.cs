@@ -17,5 +17,20 @@ namespace Ajax.Controllers
         {
             return View();
         }
+
+        public IActionResult Text()
+        {
+            return View();
+        }
+
+        public IActionResult SayHello(string name)
+        {
+            System.Threading.Thread.Sleep(2000);
+            if(string.IsNullOrEmpty(name))
+            {
+                name = "無名氏";
+            }
+            return Content($"Hello 帥哥{name}","text / html",System.Text.Encoding.UTF8);
+        }
     }
 }

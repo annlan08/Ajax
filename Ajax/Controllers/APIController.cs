@@ -51,13 +51,9 @@ namespace Ajax.Controllers
             //    return Content("Name", "text/plain");
             //}
 
-
-
             //_context.Members.Add(member);
             //_context.SaveChanges();
             //return Content("ok", "text/plain");
-
-
 
             string info = _host.ContentRootPath+" //// "+_host.WebRootPath;
             return Content(info, "text/plain");
@@ -68,6 +64,10 @@ namespace Ajax.Controllers
             return View();
         }
 
+        public IActionResult Fetch()
+        {
+            return View();
+        }
 
         public IActionResult Address()
         {

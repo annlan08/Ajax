@@ -1,0 +1,53 @@
+﻿@{
+
+}
+
+<div id="div1" class="font-weight-bold" style="font-size:100px">
+
+</div>
+
+<div>
+    <img id="img1"/>
+</div>
+
+<div>
+    <select id="select1">
+
+    </select>
+</div>
+
+
+
+@section Scripts{
+ 
+<script>
+    const thediv = document.querySelector('#div1');
+    const theimg = document.querySelector('#img1')
+    const theselect = document.querySelector('#select1')
+
+    fetch("@Url.Action("Index","API")")
+        .then(response => {
+        return response.text();
+        })
+        .then(data => {
+            console.log(data);
+            thediv.textContent = data;
+        });
+
+    fetch("@Url.Action("GetImage","Members")"+"/1")
+        .then(response => response.blob())
+        .then(datas => {
+            theimg.src = URL.createObjectURL(datas);
+        })
+
+    fetch("@Url.Action("city","API")")
+        .then(response => response.json())
+        .then(datas => {
+            for (let item of datas) {
+                let opt = new Option(item, item);
+                theselect.options.add(opt);
+            }
+        })
+</script>
+
+}

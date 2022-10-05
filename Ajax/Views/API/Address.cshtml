@@ -26,6 +26,7 @@
         const city_select = document.querySelector('#select_city');
         const site_select = document.querySelector('#select_site');
         const road_select = document.querySelector('#select_road');
+        
         connect();
 
         xhr.addEventListener('load', () => {
@@ -78,6 +79,9 @@
                 console.log('send');
                 xhr.open("GET", urlstring);
                 xhr.send();
+                fetch(urlstring)
+                    .then(response => response.text())
+                    .then(data => datas = data)
                 urlstring = "";
             }
         }

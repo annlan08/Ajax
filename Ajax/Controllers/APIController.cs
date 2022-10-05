@@ -46,17 +46,33 @@ namespace Ajax.Controllers
 
         public IActionResult Register(Member member)
         {
-            //if (_context.Members.Where(m => m.Name == member.Name || m.Email == member.Email).Any())
-            //{
-            //    return Content("Name", "text/plain");
-            //}
+            string result = "";
 
-            //_context.Members.Add(member);
-            //_context.SaveChanges();
-            //return Content("ok", "text/plain");
+            if (_context.Members.Where(m => m.Name == member.Name).Any())
+            {
+                result += "name ";
+            }
 
-            string info = _host.ContentRootPath+" //// "+_host.WebRootPath;
-            return Content(info, "text/plain");
+            if (_context.Members.Where(m => m.Email == member.Email).Any())
+            {
+                result += "email ";
+            }
+
+            if (result == "")
+            {
+                _context.Members.Add(member);
+                _context.SaveChanges();
+                System.Threading.Thread.Sleep(1500);
+
+                return Content("OK", "text/plain");
+            }
+
+
+
+            return Content($"{result}", "text/plain");
+
+            //string info = _host.ContentRootPath + " //// " + _host.WebRootPath;
+            //return Content(info, "text/plain");
         }
 
         public IActionResult Promsie()

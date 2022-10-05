@@ -22,10 +22,10 @@ namespace Ajax.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //    optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Demo;Integrated Security=True");
-            //}
+            if (!optionsBuilder.IsConfigured)
+            {
+               optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Demo;Integrated Security=True");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,8 +35,6 @@ namespace Ajax.Models
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.ToTable("Address");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.City)
                     .HasMaxLength(10)
@@ -53,8 +51,6 @@ namespace Ajax.Models
 
             modelBuilder.Entity<Member>(entity =>
             {
-                entity.Property(e => e.MemberId).ValueGeneratedNever();
-
                 entity.Property(e => e.Email).HasMaxLength(200);
 
                 entity.Property(e => e.FileName).HasMaxLength(50);

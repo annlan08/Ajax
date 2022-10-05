@@ -1,3 +1,111 @@
 ﻿@{
 
 }
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+@section Styles{
+<style>
+
+</style>
+}
+
+<h1>Register</h1>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <form name="userInfo" method="post" action="~/API/Register" enctype="application/x-www-form-urlencoded">
+            <div class="form-group">
+                <label for="InputName">姓名</label>
+                <input type="text" class="form-control" id="InputName" name="Name">
+                <small id="tagName" class="form-text" style="color:red"></small>
+            </div>
+            <div class="form-group">
+                <label for="InputEmail">電子郵件</label>
+                <input type="email" class="form-control" id="InputEmail" name="Email">
+                <small id="tagEmail" class="form-text" style="color:red" ></small>
+            </div>
+            <div class="form-group">
+                <label for="InputAge">年紀</label>
+                <input type="number" class="form-control" id="InputAge" name="Age">
+            </div>
+            <div class="form-group">
+                <label for="InputFile">選擇檔案</label>
+                <input type="file" class="form-control-file" id="InputFile" name="File1">
+            </div>
+            <button type="submit" id="buttonSubmit" class="btn btn-primary">送出</button>
+        </form>
+        <div class="alert alert-primary" role="alert" id="div1"></div>
+
+    </div>
+    <div class="col-3"></div>
+</div>
+
+@section Scripts{
+    <script>
+        const btn = document.querySelector("#buttonSubmit")
+        const divMessage = document.querySelector("#div1")
+        const txtName = document.querySelector("#InputName")
+        const txtEmail = document.querySelector("#InputEmail")
+
+
+
+        btn.addEventListener("click", evt => {
+            evt.preventDefault()
+            divMessage.textContent = "";
+            console.log("click");
+            const formData = new FormData(document.userInfo);
+            fetch(document.userInfo.action, {
+                method: "POST",
+                body: formData
+            }).then(response => response.text())
+                .then(data => {
+                    divMessage.textContent = data
+                    console.log(data);
+                })
+        })
+
+        txtName.addEventListener("blur", () => {
+            console.log("blurName")
+            const formData = new FormData(document.userInfo);
+            fetch(document.userInfo.action, {
+                method: "POST",
+                body: formData
+            }).then(response => response.text())
+                .then(data => {
+                    if (data.toString().includes('name') ) {
+                        tagName.textContent = '名字重複';
+                    }
+                    else {
+                        tagName.textContent = '';
+                    }
+                })
+
+        })
+
+
+        txtEmail.addEventListener("blur", () => {
+            console.log("blurEmail")
+            const formData = new FormData(document.userInfo);
+            fetch(document.userInfo.action, {
+                method: "POST",
+                body: formData
+            }).then(response => response.text())
+                .then(data => {
+                    if (data.toString().includes("email")) {
+                        tagEmail.textContent = '電子郵件已被使用';
+                    }
+                    else {
+                        tagEmail.textContent = '';
+                    }
+                })
+
+        })
+
+    </script>
+}
+
+
+

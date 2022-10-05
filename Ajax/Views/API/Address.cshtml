@@ -1,0 +1,109 @@
+﻿@{
+
+}
+
+<div>
+    <select id="select_city" class="m-2">
+    </select>
+    <select id="select_site" class="m-2">
+    </select>
+    <select id="select_road" class="m-2">
+    </select>
+</div>
+
+
+
+
+
+@section Scripts{ 
+    <script>
+
+        let urlstring = "@Url.Action("city","API")";
+        let flag = 1;  // 1=>初始化  2=>改變city  3=>改變site
+
+
+        const xhr = new XMLHttpRequest();
+        const city_select = document.querySelector('#select_city');
+        const site_select = document.querySelector('#select_site');
+        const road_select = document.querySelector('#select_road');
+        connect();
+
+        xhr.addEventListener('load', () => {
+            const datas = JSON.parse(xhr.responseText);
+            console.log(datas);
+            if (flag == 1) {
+                addoptitem(datas, city_select);
+                let currentcity = city_select.options[0].value;
+                console.log(currentcity);
+                urlstring = `/API/site?city=${currentcity}`;
+                flag = 2;
+                connect();
+            }
+
+            else if (flag == 2) {
+                addoptitem(datas, site_select);
+                let currentsite = site_select.options[0].value;
+                console.log(currentsite);
+                urlstring = `/API/road?site=${currentsite}`;
+                flag = 3;
+                connect();
+            }
+
+            else if (flag == 3) {
+                addoptitem(datas, road_select);
+            }
+        })
+
+        city_select.addEventListener('change', () => {
+            console.log('site');
+            let currentcity = city_select.options[city_select.selectedIndex].value;
+            console.log(currentcity);
+            urlstring = `/API/site?city=${currentcity}`;
+            flag = 2;
+            connect();
+
+        })
+
+        site_select.addEventListener('change', () => {
+            console.log('road');
+            let currentsite = site_select.options[site_select.selectedIndex].value;
+            console.log(currentsite);
+            urlstring = `/API/road?site=${currentsite}`;
+            flag = 3;
+            connect();
+        })
+
+        function connect() {
+            if (urlstring != "") {
+                console.log('send');
+                xhr.open("GET", urlstring);
+                xhr.send();
+                urlstring = "";
+            }
+        }
+
+        function removeOptions(selectElement) {
+            let i, L = selectElement.options.length - 1;
+            for (i = L; i >= 0; i--) {
+                selectElement.remove(i);
+            }
+        }
+
+        function addoptitem(datas, selecter) {
+            removeOptions(selecter);
+            for (let item of datas) {
+                const opt = new Option(item, item);
+                selecter.options.add(opt);
+            }
+        }
+
+
+
+
+
+
+
+
+    </script>
+
+}

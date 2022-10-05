@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "Promise";
+}
+
+<h1>Promise</h1>
+
+@section Scripts{
+    <script>
+        //建立 promise 物件
+        //參數1程式碼執行成功會呼叫的funciton
+        //參數2程式碼執行失敗會呼叫的funciton
+        //const promise = new Promise((resolve, reject) => {
+        //    //非同步的程式碼執行處
+        //    const num = Math.random() > 0.5 ? 1 : 0
+        //    console.log(num)
+        //    if (num) {
+        //        resolve("成功")
+        //    } else {
+        //        reject("失敗")
+        //    }
+        //})
+
+        ////使用 promise
+        //promise
+        //    .then(result => console.log(result))
+        //    .catch(err => console.log(err))
+        //    .finally(()=>console.log("end"))
+
+
+        function printSomething(data) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {resolve(data) },1000)
+            })
+            return promise;
+        }
+
+        printSomething("A")
+            .then(data => {
+                console.log(data)
+                return printSomething("B")
+            })
+            .then(data => {
+                console.log(data)
+                return printSomething("C")
+            })
+            .then(data => {
+                console.log(data)
+            })
+
+
+
+
+
+        //setTimeout(function () {
+        //    console.log('A');
+        //}, 1000);
+        //setTimeout(function () {
+        //    console.log('B');
+        //}, 1000);
+        //setTimeout(function () {
+        //    console.log('C');
+        //}, 1000);
+        ////A>B>C
+
+        //setTimeout(function () {
+        //    console.log('A');
+        //}, 3000);
+        //setTimeout(function () {
+        //    console.log('B');
+        //}, 2000);
+        //setTimeout(function () {
+        //    console.log('C');
+        //}, 1000);
+        ////wait 1 sec > C > wait 1 sec > B > wait 1 sec > C (3)
+
+        //setTimeout(function () {
+        //    console.log('A');
+        //    setTimeout(function () {
+        //        console.log('B');
+        //        setTimeout(function () {
+        //            console.log('C');
+        //        }, 1000);
+        //    }, 1000);
+        //}, 1000);
+        ////wait 1 sec > A > wait 1 sec > B > wait 1 sec > C
+    </script>
+}

@@ -54,18 +54,26 @@
 
         btn.addEventListener("click", evt => {
             evt.preventDefault()
-            divMessage.textContent = "";
             console.log("click");
             const formData = new FormData(document.userInfo);
-            fetch(document.userInfo.action, {
+            sendData(formData);
+            divMessage.textContent="";
+            
+        })
+
+        async function sendData(formData) {
+            let response = await fetch(document.userInfo.action, {
                 method: "POST",
                 body: formData
-            }).then(response => response.text())
-                .then(data => {
-                    divMessage.textContent = data
-                    console.log(data);
-                })
-        })
+            })
+            let result = "";
+            result = await response.text();
+            console.log(result);
+            console.log(divMessage.textContent);
+            divMessage.textContent = result;
+            console.log(result);
+            
+        }
 
         txtName.addEventListener("blur", () => {
             console.log("blurName")

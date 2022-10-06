@@ -1,0 +1,36 @@
+﻿@{
+
+}
+
+
+<div>
+    <input type="text" id="txt1" class="form-control w-50 m-1" />
+
+    <div class="list-group w-50" id="list1">
+    </div>
+</div>textbox
+
+@section Scripts{
+    <script src="~/js/travel.js"></script>
+    <script>
+        const textbox = document.querySelector('#txt1');
+        const droplist = document.querySelector('#list1');
+
+        textbox.addEventListener('input', () => {
+            const keyword = textbox.value;
+
+            let result = DATAS.filter(data => data.Name.indexOf(keyword) != -1)
+            let items = result.map(data => {
+                return `<a href="#" class="list-group-item list-group-item-action">${data.Name}</a>`
+            })
+            console.log(items);
+            droplist.innerHTML = items.join("");
+        })
+
+
+        function read() {
+
+        }
+
+    </script>
+}

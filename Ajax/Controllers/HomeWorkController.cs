@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ajax.Models;
 
 namespace Ajax.Controllers
 {
@@ -19,6 +20,11 @@ namespace Ajax.Controllers
         }
 
         public IActionResult Homework3()
+        {
+            return View();
+        }
+
+        public IActionResult Homework4()
         {
             return View();
         }

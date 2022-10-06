@@ -39,7 +39,7 @@
 
         async function loadData(flag) {
             let response = await fetch(urlstring);
-            let datas = await response.json();
+            let datas = await response.json()
 
             if (flag==1) {
                 addSelectitem(datas, city_select)

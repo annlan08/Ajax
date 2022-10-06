@@ -1,0 +1,43 @@
+﻿@{
+
+}
+
+<div>
+    <input type="text" id="txt1" class="form-control w-50 m-1" />
+
+    <div class="list-group w-50" id="list1">
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const textbox = document.querySelector('#txt1');
+        const droplist = document.querySelector('#list1');
+
+        textbox.addEventListener('input', () => {
+            const key = textbox.value;
+            read(key);
+
+        })
+
+
+        async function read(keyword) {
+            let url = '@Url.Action("product", "API")';
+            let para = `?keyword=${keyword}`;
+
+            let response = await fetch(`${url}${para}`);
+            let datas = await response.json();
+
+            let str = "";
+
+            datas.forEach(text => {
+                str += `<a href="#" class="list-group-item list-group-item-action">${text}</a>`
+            })
+
+            console.log(str);
+            droplist.innerHTML = str;
+
+        }
+
+    </script>
+}

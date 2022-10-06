@@ -28,6 +28,12 @@ namespace Ajax
             services.AddDbContext<DemoContext>(options=> {
                 options.UseSqlServer(Configuration.GetConnectionString("DemoConnection"));
             });
+
+            services.AddDbContext<NorthwindContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("NorthwindConnection"));
+            });
+
             services.AddControllersWithViews();
         }
 

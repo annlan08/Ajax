@@ -17,11 +17,13 @@ namespace Ajax.Controllers
 
         private readonly IWebHostEnvironment _host;
         private readonly DemoContext _context;
+        private readonly NorthwindContext _Ncontext;
 
-        public APIController(IWebHostEnvironment host,DemoContext context)
+        public APIController(IWebHostEnvironment host,DemoContext context, NorthwindContext Ncontext)
         {
             _host = host;
             _context = context;
+            _Ncontext = Ncontext;
         }
 
         public IActionResult First()
@@ -58,19 +60,14 @@ namespace Ajax.Controllers
                 result += "email ";
             }
 
-            if (result == "")
+            if (string.IsNullOrEmpty(result)) 
             {
+                result = "";
                 _context.Members.Add(member);
                 _context.SaveChanges();
-                System.Threading.Thread.Sleep(1500);
-
                 return Content("OK", "text/plain");
             }
-
-
-
             return Content($"{result}", "text/plain");
-
             //string info = _host.ContentRootPath + " //// " + _host.WebRootPath;
             //return Content(info, "text/plain");
         }
@@ -107,6 +104,12 @@ namespace Ajax.Controllers
         {
             var Road = _context.Addresses.Where(r => r.SiteId == site).Select(r => r.Road).Distinct();
             return Json(Road);
+        }
+
+        public IActionResult product(string keyword)
+        {
+            var prod = _Ncontext.Products.Where(p => p.ProductName.Contains(keyword)).Select(p => p.ProductName).ToArray();
+            return Json(prod);
         }
     }
 }
